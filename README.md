@@ -1,7 +1,7 @@
 # Innovation at Colleges 
 
 ## Background
-Innovation is the act of bringing new ideas, methods, or things. Why innovation is critical? It is important because technological advances have played a key role in facilitating radically improved standards of living. In particular, scientific-technological innovations play an increasingly prominent role in the growth of leading industrial economies. 
+Innovation is the act of bringing new ideas, methods, or things. Why innovation is critical? It is important because technological advances have played a key role in facilitating radically improved standards of living. In particular, scientific-technological innovations play an increasingly prominent role in the growth of leading industrial economies. I'm inspired by the college environment to be involved in entrepreneurship and commercialization, and I'm curious to learn about how different colleges have different innovation cultures. 
 
 ## Business Question 
 Therefore, this leads to my business question of: 
@@ -49,7 +49,7 @@ Next, we will go beyond investigating only one independent variable, but many - 
 
 ![figure 6. Linear Regression between if the school is elite and share of inventors and parent's income](https://github.com/sophiaxuu/decision-analytics/blob/main/mini-proj2/figure%206.png)
 
-Here, R2 values means R-squared is a measure of how well a linear regression model “fits” a dataset. Also commonly called the coefficient of determination. Our r-squares is 0.33, which is not as large as i want it to be. There may be further investigation needed to understand. 
+Here, R2 value means R-squared is a measure of how well a linear regression model “fits” a dataset. Also commonly called the coefficient of determination. Our r-squares is 0.33, which is not as large as i want it to be. There may be further investigation needed to understand. 
 
 The standard error gives in particular is an indication of the likely accuracy of the sample mean as compared with the population mean. The smaller the standard error, the less the spread and the more likely it is that any sample mean is close to the population mean. A small standard error is thus a Good Thing. 
 
@@ -79,20 +79,20 @@ The next step is to calculate the residual which is invetor_error = actual share
 The purpose of finding outliers is that, by analyzing our outlier data points, I can potentially identify causes of an outlier to improve current policy or methods to incentivize innovation. 
 
 ## Further Analysis and Application
-We can conclude that, we can make prediction of share of inventore in colleges based on if it's elite school and parent's average income level. 
+We can conclude that we can predict the share of inventory in colleges based on if it's elite school and parent's average income level. 
 
 __Share_of_inventor = 0.0371218 + 0.013103192 * is_elite -0.062772509 * par_mean__
 
-The positive coefficient between is_elite and share_of_inventor shows that elite school does tend to have more students that files patents. This could be explained by the fact that elite school tend to have more powerful research centers, faculties and funding to conduct scientific research. Hence there is a positive correlation. 
-The negative coefficient between par_mean and share_of_inventor shows that students with wealthy parents are less likely to be an inventor as students. This coil dbe explained as wealthy people don’t need patents or innovation to increase social status, while people in lower-income levels are more motivated to innovate and improve their capital accumulation. 
+The positive coefficient between is_elite and share_of_inventor shows that elite school does tend to have more students that files patents. This could be explained by the fact that elite schools tend to have more powerful research centers, faculties, and funding to conduct scientific research. Hence there is a positive correlation. 
+The negative coefficient between par_mean and share_of_inventor shows that students with wealthy parents are less likely to be an inventor as students. This could be explained as wealthy people don’t need patents or innovation to increase social status, while people in lower-income levels are more motivated to innovate and improve their capital accumulation. 
 
-With those correlation in mind, educational institutes that want to foster innovation could try to find students with middle parents' income, and provide better education as "elite school". The government will be able to better provide environment and generat policies that encourages more innovation. 
+With that correlation in mind, educational institutes that want to foster innovation could try to find students with middle parents' income, and provide better education as "elite school". The government will be able to better provide policies that encourage more innovation. 
 
 
 Some possible areas to improve on will be: 
-- I could potentailly use another dataset that gives numeric ranking as a variable to measure school selectivity instead of grouping them 
-- I could investigate and try to understand causes of those outliers 
-- I could look into what factors of elite school education is most closedly related to fostering inventors 
+- I could potentially use another dataset that gives numeric ranking as a variable to measure school selectivity instead of grouping them 
+- I could investigate and try to understand the causes of those outliers 
+- I could look into what factors of elite school education is most closely related to fostering inventors 
 
 
 # Data Analysis Steps 
