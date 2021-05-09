@@ -32,65 +32,23 @@ According to Opportunity Insights, they define an individual as an investor if h
 * count: Number of students
 * inventor: Share of inventors among students
 
-## Setup Datasets 
-### Combine two datasets 
-To combine the two datasets toghether, I use VLOOKUP with key = super_opeid as it appears in both table and is uniquely identifiable for each school. I use VLOOKUP four times to bring in different vairables from mrc_table2.xlsx to innovation_analysis.xlsx 
-* =VLOOKUP(A2:A424, mrc_table2.xlsx!$A$1:$AF$2203, 4,FALSE) to bring in “tier” variable into aggregated_data table. 
-* =VLOOKUP(A2:A424, mrc_table2.xlsx!$A$1:$AF$2203, 5,FALSE) to bring in “tier_name” variable into aggregated_data table. 
-* =VLOOKUP(A2:A424, mrc_table2.xlsx!$A$1:$AF$2203, 19,FALSE) to bring in "par_mean".
-* =VLOOKUP(A2:A424, mrc_table2.xlsx!$A$1:$AF$2203, 32,FALSE) to bring in "k_mean". 
-
-### Data Cleaning 
-Because we want to investigate how the different tiers impact colleges share of inventor, I decided to: 
-* group “highly selective private”, “highly selective public”, “ivy plus”, “other elite schools” as one group named “is_elite” using the function 
-  =IF(OR(E2 = 1, E2 = 2, E2 = 3, E2 = 4), 1, 0) 
-* Group “selective private” and “selective private” and “is_selective” using the function
-  =IF(OR(E2 = 4, E2 = 5), 1, 0)
-* Since and all others as “nonselective”, we use the function 
-  = 1 - G2 - H2
-
-By filter, we find there is one N/A data, so I delete the row of Ohios State University and put it in “deleted” table. 
-
-## Simple Linear Regression 
-### Plot and Calculate the regression
-I first want to perform a simple linear regression with one independent variable - students' parent income "par_mean", and the dependent variable is the share of inventors among students - "inventor". I use SCATTERPLOT, and add linear regression line as followed. To calculate different matrixs of the regression line, I use functions: 
-* slope = SLOPE(known_xs, know_ys) which is
-* r-square = =RSQ(D2:D423, J2:J423)
-* standard error of residual =STEYX(D2:D423, J2:J423)
-* Y intercept = =INTERCEPT(D2:D423, J2:J423)
+# Simple Linear Regression
 
 ![Figure1. Relationship between parent's income and share of inventors among students](https://github.com/sophiaxuu/decision-analytics/blob/main/mini-proj2/figure%201.png)
 
-### What does data mean? 
 The above matrices lead to the hypothesis relationship: 
 _The predicted share of investors = 0. 04118114 - 0.0631198 * students’ average parent income_ 
 
 * R-squared is a measure of how well a linear regression model “fits” a dataset. It is the proportion of the variance in the response variable that can be explained by the predictor variable. A value of 0 indicates that the response variable cannot be explained by the predictor variable at all. A value of 1 indicates that the response variable can be perfectly explained without error by the predictor variable. In our table, the 0.18 value is not as good as I’ve expected, therefore there may exists a lot of outliners. 
 * The residual standard deviation (or residual standard error) is also a measure used to assess how well a linear regression model fits the data. 
 
-## Malti-variable Linear Regression 
-### Plot and Calculate the regression
-Next, we will go beyond investigating only one independent variable, but many - how will variables including "Is_elite", "Is_selective", "nonselective", "par_mean", "k_mean", and "is_outliner" has influence on share of "investor"? 
-
-To answer the question, I will perform milti-vairable linear regression using the  Excel Data Analysis ToolPack. I go do "Data Analysis", select "Regression", and put in Y-range = "inventor" and x-range = "Is_elite", "Is_selective", "nonselective", "par_mean", "k_mean". This will generate a SUMMARY OUTPUT AS FOLLOWS: 
-![figure 2. The Output Summary of Milt-Variable Linear Regression between share of inventors and school selectivity, parents' income, students future income](https://github.com/sophiaxuu/decision-analytics/blob/main/mini-proj2/figure%202.png)
-
-
-Since I also select line fit plot, several graphs of how each X variable relates to Y variable is generated: 
-![figure 3. Linear Regression between share of inventors and school selectivity](https://github.com/sophiaxuu/decision-analytics/blob/main/mini-proj2/figure%203.png)
-![figure 4. Linear Regression between share of inventors and parent's income and children's fiture income](https://github.com/sophiaxuu/decision-analytics/blob/main/mini-proj2/figure%204.png]
-
-Looking at the summary output, i find that only the P-value for is_elite and par_mean is relatively small. The p-valuemeasures probability that the result is by chance, so the smaller it is, the better the regression. Hence, I beleive these two variables have most influence on the rate of parent among college students. Therefore, to make the prediction relationship more accurante, I decided to perform another multivariable liner regression with two independent variables only (is_elite and par_mean).  
-
-## Multi-variable Linear Regression (updated) 
-### Plot and Calculate the regression
-Therefore, I copy data from "aggregated_data" table to "updated_prediction" sheet within same excel file, and I only keep two independent variables - is_elite and par_mean. I use "Data Analysis" again, select "Regression", and put in Y-range = "inventor" and x-range = "Is_elite" and "par_mean" This will generate a SUMMARY OUTPUT AS FOLLOWS: 
+## Multi-variable Linear Regression 
+Next, we will go beyond investigating only one independent variable, but many - how will variables including "Is_elite", "Is_selective", "nonselective", "par_mean", "k_mean", and "is_outliner" has influence on share of "investor"?
 
 ![figure 5. The Output Summary of Milt-Variable Linear Regression between share of inventors and school selectivity and parents' income](https://github.com/sophiaxuu/decision-analytics/blob/main/mini-proj2/figure%205.png)
 
 ![figure 6. Linear Regression between if the school is elite and share of inventors and parent's income](https://github.com/sophiaxuu/decision-analytics/blob/main/mini-proj2/figure%206.png)
 
-### What does data mean? 
 Here, R2 values means R-squared is a measure of how well a linear regression model “fits” a dataset. Also commonly called the coefficient of determination. Our r-squares is 0.33, which is not as large as i want it to be. There may be further investigation needed to understand. 
 
 The standard error gives in particular is an indication of the likely accuracy of the sample mean as compared with the population mean. The smaller the standard error, the less the spread and the more likely it is that any sample mean is close to the population mean. A small standard error is thus a Good Thing. 
@@ -136,3 +94,11 @@ Some possible areas to improve on will be:
 - I could investigate and try to understand causes of those outliers 
 - I could look into what factors of elite school education is most closedly related to fostering inventors 
 
+
+# Data Analysis Steps 
+1. I first Combine two datasets toghether using VLOOKUP with key = super_opeid as it appears in both table and is uniquely identifiable for each school. I use VLOOKUP four times to bring in different vairables from mrc_table2.xlsx to innovation_analysis.xlsx 
+2. Next I do data cleaning by grouping group “highly selective private”, “highly selective public”, “ivy plus”, “other elite schools” as one group named “is_elite” using the function and grouping “selective private” and “selective private” and “is_selective” using the function. 
+3. By filter, we find there is one N/A data, so I delete the row of Ohios State University and put it in “deleted” table. 
+4. Next I perform simple linear regression with one independent variable - students' parent income "par_mean", and the dependent variable is the share of inventors among students - "inventor". I use SCATTERPLOT, and add linear regression line as followed.
+5. Perform milti-vairable linear regression using the Excel Data Analysis ToolPack.
+6. Calculate Prediction and Identify Outliners
